@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { Menu, X } from 'lucide-react';
+import API_URL from '../config';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -21,7 +22,7 @@ const Shop = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                let url = 'http://localhost:5000/api/products';
+                let url = `${API_URL}/products`;
                 const params = {};
 
                 if (selectedCategory && selectedCategory !== 'All') {

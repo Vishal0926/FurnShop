@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import API_URL from '../../config';
 
 const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ const AdminDashboard = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/products');
+            const response = await fetch(`${API_URL}/products`);
             const data = await response.json();
             setProducts(data);
         } catch (error) {
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
     const deleteProduct = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+                const response = await fetch(`${API_URL}/products/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${user.token}`

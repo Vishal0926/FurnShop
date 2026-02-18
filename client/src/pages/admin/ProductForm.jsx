@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
+import API_URL, { BASE_URL } from '../../config';
 
 const ProductForm = () => {
     const [name, setName] = useState('');
@@ -26,7 +27,7 @@ const ProductForm = () => {
 
     const fetchProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+            const { data } = await axios.get(`${API_URL}/products/${id}`);
             setName(data.name);
             setPrice(data.price);
             setImage(data.image);
@@ -51,7 +52,7 @@ const ProductForm = () => {
                 },
             };
 
-            const { data } = await axios.post('http://localhost:5000/api/upload', formData, config);
+            const { data } = await axios.post(`${API_URL}/upload`, formData, config);
 
             // Backend returns path like '/uploads/image.jpg'
             // We need to make it a full URL for the frontend to display if it's served statically
@@ -59,7 +60,7 @@ const ProductForm = () => {
             // For simplicity, let's store the full URL if possible, or just the relative path and assume <img src={...}> works.
             // Since we set up static serving, 'http://localhost:5000/uploads/...' should work.
             // The backend returns '/uploads/...'
-            setImage(`http://localhost:5000${data}`);
+            setImage(`${BASE_URL}${data}`);
             setUploading(false);
         } catch (error) {
             console.error(error);
@@ -92,9 +93,9 @@ const ProductForm = () => {
 
         try {
             if (id) {
-                await axios.put(`http://localhost:5000/api/products/${id}`, productData, config);
+                await axios.put(`${API_URL}/products/${id}`, productData, config);
             } else {
-                await axios.post('http://localhost:5000/api/products', productData, config);
+                await axios.post(`${API_URL}/products`, productData, config);
             }
             navigate('/admin/dashboard');
         } catch (error) {

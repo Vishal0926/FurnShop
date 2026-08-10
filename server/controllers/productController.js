@@ -45,7 +45,6 @@ exports.getCategories = async (req, res) => {
 // Create a product
 exports.createProduct = async (req, res) => {
     try {
-        console.log('createProduct body:', req.body);
         const { name, category, price, description, image } = req.body;
         const product = new Product({
             name,

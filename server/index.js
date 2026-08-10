@@ -16,6 +16,11 @@ const path = require('path');
 app.use(cors());
 app.use(express.json());
 
+// Health check
+app.get('/', (req, res) => {
+    res.json({ message: 'FurnShop API is running ✅' });
+});
+
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);

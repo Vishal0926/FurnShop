@@ -136,7 +136,3 @@ swain-furniture/
 
 ### Upload
 - `POST /api/upload` - Upload an image file
-
-## License
-
-This project is licensed under the MIT License.
